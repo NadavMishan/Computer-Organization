@@ -1,2 +1,4 @@
 ﻿  simMain.c
+C:\Users\nadav\Desktop\Computer Organization\sim\sim\instructionActions.h(146,1): warning C4716: 'executeInsturctionLwSw': must return a value
+C:\Users\nadav\Desktop\Computer Organization\sim\sim\instructionActions.h(148,1): warning C4716: 'executeInsturctionIO': must return a value
   sim.vcxproj -> C:\Users\nadav\Desktop\Computer Organization\sim\x64\Debug\sim.exe

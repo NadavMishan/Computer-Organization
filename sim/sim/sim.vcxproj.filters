@@ -18,5 +18,16 @@
     <ClCompile Include="simMain.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utils.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileActions.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="instructionActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
