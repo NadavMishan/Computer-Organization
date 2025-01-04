@@ -1,7 +1,10 @@
-#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_WARNINGS 
 #include <stdio.h>
 #include "fileActions.h"
 #include "instructionActions.h"
+#include "loggers.h"
+#include "hardware.h"
+
 
 /*
 0   sim.exe
@@ -21,6 +24,9 @@
 14  monitor.yuv
 */
 
+
+
+
 //int main(int argc, char* argv[]) {
 int main() {
 	char* inargs[] = { "sim.exe ","imemin.txt ","dmemin.txt ","diskin.txt ","irq2in.txt ",
@@ -29,6 +35,7 @@ int main() {
 
 	// Initialize variables
 	int registers[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	unsigned int IO_registers[] = { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0 };
 	int PC = 0;
 	instructionType insturction = { 0 };
 
@@ -40,22 +47,22 @@ int main() {
 		printf("PC: %d\n", PC);
 		//Parse Instruction
 		insturction = parseInstruction(imemin[PC], registers);
-		
+		trace_txt(PC, imemin[PC], registers, inargs[7]);
+
 		// Execute Instruction
-		if (insturction.opcode <= 15) { 
-			executeInsturctionBasic(insturction, registers, &PC); 
+		if (insturction.opcode <= 15) {
+			executeInsturctionBasic(insturction, registers, &PC);
 		}
 
-		else if (insturction.opcode <= 17) { 
-			executeInsturctionLwSw(insturction, registers, &PC, *inargs); 
+		else if (insturction.opcode <= 17) {
+			executeInsturctionLwSw(insturction, registers, &PC, *inargs);
 			PC += 1; //remove
 		}
-		
-		else if (insturction.opcode <= 20) { 
-			executeInsturctionIO(insturction, registers, &PC, *inargs); 
-			PC += 1; //remove
+
+		else if (insturction.opcode <= 20) {
+			executeInsturctionIO(insturction, registers, IO_registers, &PC, *inargs);
 		}
-		
+
 		else {
 			printf("----------------		Program Halted		----------------\n");
 			break;
@@ -65,8 +72,17 @@ int main() {
 		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
 		printf("\n ------------------------------------------------------------\n");
 
+		HardwareCycle(insturction, registers, IO_registers, *inargs);
+
 	}
+	
+	// End run .txt files
+	regout_txt(registers, inargs[6]);
+	cycles_txt(IO_registers[8], inargs[9]);
 
 
 	return 0;
 }
+
+
+

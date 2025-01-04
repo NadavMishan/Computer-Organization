@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\hardware.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\hardware.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\fileActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\fileActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\loggers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\loggers.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\imemin.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:sim\\imemin.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\trace.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\trace.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,21 +38,38 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "simMain.c",
               "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\simMain.c",
               "RelativeDocumentMoniker": "sim\\simMain.c",
               "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\simMain.c",
               "RelativeToolTip": "sim\\simMain.c",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-12-28T10:32:58.841Z",
               "IsPinned": true,
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "trace.txt",
+              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\trace.txt",
+              "RelativeDocumentMoniker": "sim\\trace.txt",
+              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\trace.txt",
+              "RelativeToolTip": "sim\\trace.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-01-04T16:30:40.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
@@ -54,52 +79,62 @@
               "RelativeDocumentMoniker": "sim\\fileActions.h",
               "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\fileActions.h",
               "RelativeToolTip": "sim\\fileActions.h",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T22:20:54.132Z",
+              "WhenOpened": "2025-01-04T15:06:57.847Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "instructionActions.h",
-              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\instructionActions.h",
-              "RelativeDocumentMoniker": "sim\\instructionActions.h",
-              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\instructionActions.h",
-              "RelativeToolTip": "sim\\instructionActions.h",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T22:18:02.494Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "loggers.h",
+              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\loggers.h",
+              "RelativeDocumentMoniker": "sim\\loggers.h",
+              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\loggers.h",
+              "RelativeToolTip": "sim\\loggers.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-04T14:57:00.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "utils.h",
               "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\utils.h",
               "RelativeDocumentMoniker": "sim\\utils.h",
               "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\utils.h",
               "RelativeToolTip": "sim\\utils.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T15:13:19.039Z",
+              "WhenOpened": "2025-01-03T16:23:28.188Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "imemin.txt",
-              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\imemin.txt",
-              "RelativeDocumentMoniker": "sim\\imemin.txt",
-              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\imemin.txt",
-              "RelativeToolTip": "sim\\imemin.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2024-12-28T13:45:59.933Z"
+              "DocumentIndex": 1,
+              "Title": "hardware.h",
+              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\hardware.h",
+              "RelativeDocumentMoniker": "sim\\hardware.h",
+              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\hardware.h",
+              "RelativeToolTip": "sim\\hardware.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-03T15:28:43.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "instructionActions.h",
+              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\instructionActions.h",
+              "RelativeDocumentMoniker": "sim\\instructionActions.h",
+              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\sim\\sim\\instructionActions.h",
+              "RelativeToolTip": "sim\\instructionActions.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-28T22:18:02.494Z",
+              "EditorCaption": ""
             }
           ]
         }

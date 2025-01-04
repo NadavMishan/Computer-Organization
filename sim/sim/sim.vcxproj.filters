@@ -24,9 +24,15 @@
     <ClCompile Include="fileActions.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loggers.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="instructionActions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hardware.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
