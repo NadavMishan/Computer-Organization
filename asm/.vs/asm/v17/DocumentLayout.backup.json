@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nadav\\Desktop\\Computer Organization\\asm\\",
+  "WorkspaceRootPath": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\asm\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BDFD3F28-99AE-4677-8610-31F7261735E7}|asm\\asm.vcxproj|C:\\Users\\nadav\\Desktop\\Computer Organization\\asm\\asm\\asmMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{BDFD3F28-99AE-4677-8610-31F7261735E7}|asm\\asm.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\asm\\asm\\asmMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{BDFD3F28-99AE-4677-8610-31F7261735E7}|asm\\asm.vcxproj|solutionrelative:asm\\asmMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -14,25 +14,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "asmMain.c",
-              "DocumentMoniker": "C:\\Users\\nadav\\Desktop\\Computer Organization\\asm\\asm\\asmMain.c",
+              "DocumentMoniker": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\asm\\asm\\asmMain.c",
               "RelativeDocumentMoniker": "asm\\asmMain.c",
-              "ToolTip": "C:\\Users\\nadav\\Desktop\\Computer Organization\\asm\\asm\\asmMain.c",
+              "ToolTip": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\asm\\asm\\asmMain.c",
               "RelativeToolTip": "asm\\asmMain.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAAAEsAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-12-27T11:46:38.801Z",
               "EditorCaption": ""

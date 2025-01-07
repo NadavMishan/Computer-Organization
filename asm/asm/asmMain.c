@@ -81,7 +81,7 @@ void read_and_process_file(const char* input_filename, const char* output_filena
     }
 
     for (int i = 0; i < MEMORY_SIZE; i++) {
-        fprintf(outputFile_DMEMIN, "0x%08X\n", memory[i]);
+        fprintf(outputFile_DMEMIN, "%08X\n", memory[i]);
     }
 
     fclose(inputFile);
@@ -91,6 +91,15 @@ void read_and_process_file(const char* input_filename, const char* output_filena
 }
 
 // המרת שורות מהקובץ
+int get_register_value(const char* reg_name) {
+    for (int i = 0; i < REGISTER_SIZE; i++) {
+        if (strcmp(registers[i].name, reg_name) == 0) {
+            return registers[i].regNumber;
+        }
+    }
+    return -1; // ערך לא חוקי אם הרגיסטר לא נמצא
+}
+
 void convert_asm_to_numbers(const char* line, FILE* outputFile_IMEMIN, int* memory) {
     char command[16], rd[16], rs[16], rt[16], rm[16];
     int imm1, imm2, opcode_value = -1;
@@ -107,7 +116,7 @@ void convert_asm_to_numbers(const char* line, FILE* outputFile_IMEMIN, int* memo
     }
 
     // ניסיון לפענח שורת אסמבלי
-    if (sscanf(line, "%s %[^,], %[^,], %[^,], %[^,], %d, %d", command, rd, rs, rt, rm, &imm1, &imm2) >= 7) {
+    if (sscanf(line, "%s %[^,], %[^,], %[^,], %[^,], %x, %x", command, rd, rs, rt, rm, &imm1, &imm2) >= 7) {
         for (int i = 0; i < OPCODE_SIZE; i++) {
             if (strcmp(opcodes[i].name, command) == 0) {
                 opcode_value = opcodes[i].opcode;
@@ -116,8 +125,24 @@ void convert_asm_to_numbers(const char* line, FILE* outputFile_IMEMIN, int* memo
         }
 
         if (opcode_value != -1) {
-            fprintf(outputFile_IMEMIN, "Opcode: %d, Rd: %s, Rs: %s, Rt: %s, Rm: %s, Imm1: %d, Imm2: %d\n",
-                opcode_value, rd, rs, rt, rm, imm1, imm2);
+            // מציאת הערכים של הרגיסטרים מתוך המילון
+            int rd_val = get_register_value(rd);
+            int rs_val = get_register_value(rs);
+            int rt_val = get_register_value(rt);
+            int rm_val = get_register_value(rm);
+
+            // בדיקה אם כל הרגיסטרים תקינים
+            if (rd_val != -1 && rs_val != -1 && rt_val != -1 && rm_val != -1) {
+                fprintf(outputFile_IMEMIN, "%02X%01X%01X%01X%01X%03X%03X\n",
+                    opcode_value,
+                    rd_val, rs_val, rt_val, rm_val,
+                    imm1 & 0xFFF, // הגבלת IMM1 ל-12 ביטים
+                    imm2 & 0xFFF  // הגבלת IMM2 ל-12 ביטים
+                );
+            }
+            else {
+                fprintf(stderr, "Error: Invalid register in line: %s\n", line);
+            }
         }
     }
 }
