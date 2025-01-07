@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "fileActions.h"
+#include "utils.h"
 
 typedef struct instructionType {
 	int opcode;
@@ -20,8 +20,8 @@ typedef struct instructionType {
 instructionType parseInstruction(char* instruction_imemin , int* R) {
 	/*
 	* Insturction Format:
-	00000000|	0000|	0000|	0000|	0000|	00 0000 0000|	11 1111 1111|
-	OP code		rd		rs		rt		rm		immediate1		immediate2
+	0000 0000|	0000|	0000|	0000|	0000|	0000 0000 0000|		1111 1111 1111|
+	OP code		rd		rs		rt		rm		immediate1			immediate2
 	*/
 	
 	instructionType instruction = {0};
@@ -31,20 +31,22 @@ instructionType parseInstruction(char* instruction_imemin , int* R) {
 	printf("instruction: %s | %llu \n", instruction_imemin, instructionVal);
 
 	// Parse specific values for instruction
-	instruction.opcode = (instructionVal & 0xFF0000000000) >> 40; // We know that last 16 bits are 0 (Logical/ Arithmetic doesn't matter)
+	instruction.opcode = (instructionVal & 0xFF0000000000) >> 40; // We know that last 16 bits are 0 (Logical/ Arithmetic shift doesn't matter)
 	instruction.rd = (instructionVal & 0x00F000000000) >> 36;
 	instruction.rs = (instructionVal & 0x000F00000000) >> 32;
 	instruction.rt = (instructionVal & 0x0000F0000000) >> 28;
 	instruction.rm = (instructionVal & 0x00000F000000) >> 24;
-	instruction.immediate1 = (instructionVal & 0x0000000FFC00) >> 12;
-	instruction.immediate2 = (instructionVal & 0x0000000003FF);
-	printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n", 
-		instruction.opcode, instruction.rd, instruction.rs, instruction.rt, instruction.rm, instruction.immediate1, instruction.immediate2);
 
-	// Assign values for $0, $imm1, $imm2, sign extend 
-	// 
-	// FIX MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	//The imm values need to be sign extended for negative values
+	instruction.immediate1 = sign_extend_12bit((instructionVal & 0x000000FFF000) >> 12);   
+	instruction.immediate2 = sign_extend_12bit((instructionVal & 0x000000000FFF));
 	
+	printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n", 
+		instruction.opcode, instruction.rd, instruction.rs, instruction.rt, 
+		instruction.rm, instruction.immediate1, instruction.immediate2);
+
+
+	// Assign values for $0, $imm1, $imm2
 	R[0] = 0;
 	R[1] = instruction.immediate1;
 	R[2] = instruction.immediate2;
@@ -58,7 +60,7 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 	int PC = *PCadr;
 	PC += 1;
 
-	char line[256] = "";
+	//char line[256] = "";
 
 	// Choose the operation and execute
 	switch (I.opcode)
@@ -143,11 +145,68 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 }
 
 
-int executeInsturctionLwSw(instructionType I, int* R, int* PCadr,char* inargs) {}
-
-int executeInsturctionIO(instructionType I, int* R, int* PCadr, char* inargs) {}
-
-
+int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* inargs) { 
+	return 0; 
+}
 
 
+
+
+
+int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCadr, char* inargs) {
+	int PC = *PCadr;
+	PC += 1;
+	int RrsRrt = R[I.rs] + R[I.rt];
+	int to_update = -1; 
+
+
+	// Choose the operation and execute
+	switch (I.opcode)
+	{
+	case 18: //Reti
+		PC = R_IO[7];
+		break;
+
+	case 19:	// I/O - IN  (READ)
+		hwregtrace_txt(R_IO[8], "READ", RrsRrt, R_IO[RrsRrt], inargs[8]); // Check if unsigned works right TODO 
+		R[I.rd] = R_IO[RrsRrt];
+		break;
+
+	case 20:	// I/O - OUT (WRITE)
+		hwregtrace_txt(R_IO[8],"WRITE", RrsRrt, R[I.rm],inargs[8]);   // TODO Do you still write to the file even if it's the same value? 
+		
+		switch (RrsRrt)
+		{
+
+		case 9:	// leds
+			// Check if  value is changed before updating in the file
+			if (R_IO[RrsRrt] != R[I.rm]) {
+				leds_txt_display7seg_txt(R_IO[8], R[I.rm], inargs[10]);
+			}
+			break;
+		case 10: // display7seg
+			// Check if  value is changed before updating in the file
+			if (R_IO[RrsRrt] != R[I.rm]) {
+				leds_txt_display7seg_txt(R_IO[8], R[I.rm], inargs[11]);
+			}
+			break;
+		}
+
+		R_IO[RrsRrt] = R[I.rm]; // Assign value to the registers 
+		
+		break;
+	}
+
+	// Reset values for $0, $imm1, $imm2 if you tried to write to them.
+	R[0] = 0;
+	R[1] = I.immediate1;
+	R[2] = I.immediate2;
+
+	*PCadr = PC; // Update PC
+
+	return 0;
+
+
+}
+	
 #endif

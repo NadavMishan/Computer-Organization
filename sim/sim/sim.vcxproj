@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fileActions.h" />
+    <ClCompile Include="loggers.h" />
     <ClCompile Include="utils.h" />
     <ClCompile Include="simMain.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hardware.h" />
     <ClInclude Include="instructionActions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
