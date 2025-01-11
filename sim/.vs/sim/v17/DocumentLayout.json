@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\LoadwordStoreword.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\LoadwordStoreword.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\fileActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\fileActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\simMain.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{245E55F8-1927-4E90-A3ED-6EC43F10E001}|sim\\sim.vcxproj|solutionrelative:sim\\instructionActions.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,17 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "simMain.c",
               "DocumentMoniker": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\simMain.c",
               "RelativeDocumentMoniker": "sim\\simMain.c",
               "ToolTip": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\simMain.c",
               "RelativeToolTip": "sim\\simMain.c",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAADcAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAFgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-12-28T10:32:58.841Z",
               "IsPinned": true,
@@ -45,28 +49,39 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "LoadwordStoreword.h",
+              "DocumentMoniker": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\LoadwordStoreword.h",
+              "RelativeDocumentMoniker": "sim\\LoadwordStoreword.h",
+              "ToolTip": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\LoadwordStoreword.h",
+              "RelativeToolTip": "sim\\LoadwordStoreword.h",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-07T13:40:04.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "fileActions.h",
               "DocumentMoniker": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\fileActions.h",
               "RelativeDocumentMoniker": "sim\\fileActions.h",
               "ToolTip": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\fileActions.h",
               "RelativeToolTip": "sim\\fileActions.h",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAF0AAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T22:20:54.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-28T22:20:54.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "instructionActions.h",
               "DocumentMoniker": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\instructionActions.h",
               "RelativeDocumentMoniker": "sim\\instructionActions.h",
               "ToolTip": "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\Computer-Organization\\sim\\sim\\instructionActions.h",
               "RelativeToolTip": "sim\\instructionActions.h",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAJEAAABQAAAAAAAAAA==",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAMwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T22:18:02.494Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-28T22:18:02.494Z"
             }
           ]
         }

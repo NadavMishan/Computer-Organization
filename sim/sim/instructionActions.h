@@ -56,7 +56,7 @@ instructionType parseInstruction(char* instruction_imemin , int* R) {
 
 
 int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
-	int R_rm_12bits = R[I.rm] & 0x3FF; // take first 12 bits of R[rm]
+	int R_rm_12bits = R[I.rm] & 0xFFF; // take first 12 bits of R[rm]
 	int PC = *PCadr;
 	PC += 1;
 
@@ -130,7 +130,6 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 		PC = R_rm_12bits;
 		break;
 
-
 	}
 
 	// Reset values for $0, $imm1, $imm2 if you tried to write to them.
@@ -145,7 +144,21 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 }
 
 
-int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* inargs) { 
+int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* dmemout) { 
+	switch (I.opcode)
+	{
+	case 16: // Load word (read)
+		R[I.rd] = memRead(R[I.rs] + R[I.rt], dmemout) + R[I.rm];
+		break;
+
+	case 17: // Store word (write)
+		memWrite(R[I.rs] + R[I.rt], R[I.rm] + R[I.rd], dmemout);
+
+		break;
+
+	default:
+		break;
+	}
 	return 0; 
 }
 

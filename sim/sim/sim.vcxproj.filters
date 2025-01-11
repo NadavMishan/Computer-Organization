@@ -35,5 +35,8 @@
     <ClInclude Include="hardware.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LoadwordStoreword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
