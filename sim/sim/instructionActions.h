@@ -26,6 +26,7 @@ instructionType parseInstruction(char* instruction_imemin , int* R) {
 	
 	instructionType instruction = {0};
 	
+
 	// Hex -> long long unsigned
 	unsigned long long instructionVal = strtoull(instruction_imemin, NULL, 16);
 	printf("instruction: %s | %llu \n", instruction_imemin, instructionVal);
@@ -153,28 +154,35 @@ int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* inargs) 
 
 
 
-int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCadr, char* inargs) {
+int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCadr,int* irq_ptr, char* inargs[]) {
 	int PC = *PCadr;
 	PC += 1;
 	int RrsRrt = R[I.rs] + R[I.rt];
-	int to_update = -1; 
 
 
 	// Choose the operation and execute
 	switch (I.opcode)
 	{
 	case 18: //Reti
-		PC = R_IO[7];
+		PC = R_IO[7]; // Return to irqreturn PC
+		*irq_ptr = 0; // return irq to 0 
 		break;
 
 	case 19:	// I/O - IN  (READ)
 		hwregtrace_txt(R_IO[8], "READ", RrsRrt, R_IO[RrsRrt], inargs[8]); // Check if unsigned works right TODO 
 		R[I.rd] = R_IO[RrsRrt];
+		
+		if (I.rd == 22) { // "A read from monitorcmd using the in instruction will return the value 0." TODO is it "return the value 0" or "return *to* 0" 
+			R[I.rd] = 0;
+		}
+
 		break;
 
 	case 20:	// I/O - OUT (WRITE)
+
 		hwregtrace_txt(R_IO[8],"WRITE", RrsRrt, R[I.rm],inargs[8]);   // TODO Do you still write to the file even if it's the same value? 
-		
+
+
 		switch (RrsRrt)
 		{
 

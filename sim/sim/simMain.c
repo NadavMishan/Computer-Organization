@@ -26,41 +26,48 @@
 
 
 
-
 //int main(int argc, char* argv[]) {
 int main() {
-	char* inargs[] = { "sim.exe ","imemin.txt ","dmemin.txt ","diskin.txt ","irq2in.txt ",
-		"dmemout.txt ","regout.txt","trace.txt","hwregtrace.txt ","cycles.txt ","leds.txt ",
-		"display7seg.txt ","diskout.txt ","monitor.txt","monitor.yuv" };
+	char* inargs[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
+		"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
+		"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
 
 	// Initialize variables
 	int registers[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	unsigned int IO_registers[] = { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0 };
 	int PC = 0;
+	int irq = 0;
+	int (*monitor)[256] = calloc(256, sizeof(*monitor));
+
 	instructionType insturction = { 0 };
-
-	// Read Input files
-
-	char** imemin = parseFile(inargs[1]);
+	
 
 	while (1) {
+		
+		interrupts(&PC, IO_registers, &irq, inargs);
+
 		printf("PC: %d\n", PC);
 		//Parse Instruction
-		insturction = parseInstruction(imemin[PC], registers);
-		trace_txt(PC, imemin[PC], registers, inargs[7]);
+		
+		char* instructionHex = readSpecificLine(inargs[1], PC);
+
+		insturction = parseInstruction(instructionHex, registers);
+		
+		trace_txt(PC, instructionHex, registers, inargs[7]);
 
 		// Execute Instruction
 		if (insturction.opcode <= 15) {
 			executeInsturctionBasic(insturction, registers, &PC);
+		
 		}
 
 		else if (insturction.opcode <= 17) {
-			executeInsturctionLwSw(insturction, registers, &PC, *inargs);
-			PC += 1; //remove
+			executeInsturctionLwSw(insturction, registers, &PC, inargs);
+			PC += 1; //remove TODO
 		}
 
 		else if (insturction.opcode <= 20) {
-			executeInsturctionIO(insturction, registers, IO_registers, &PC, *inargs);
+			executeInsturctionIO(insturction, registers, IO_registers, &PC,&irq, inargs);
 		}
 
 		else {
@@ -72,17 +79,15 @@ int main() {
 		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
 		printf("\n ------------------------------------------------------------\n");
 
-		HardwareCycle(insturction, registers, IO_registers, *inargs);
-
+		HardwareCycle(insturction, registers, IO_registers, inargs, monitor);
 	}
 	
 	// End run .txt files
+
 	regout_txt(registers, inargs[6]);
 	cycles_txt(IO_registers[8], inargs[9]);
-
+	monitor_txt(monitor, inargs[13]);
+	monitor_yuv(monitor, inargs[14]);
 
 	return 0;
 }
-
-
-

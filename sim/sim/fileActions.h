@@ -6,8 +6,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX_LINES 1000
-#define MAX_LINE_LENGTH 256
+#define MAX_LINES 4096
+#define MAX_LINE_LENGTH 128
 
 // Function to remove white spaces from a string
 void remove_whitespaces(char* str) {
@@ -22,7 +22,7 @@ void remove_whitespaces(char* str) {
 }
 
 // Function to read lines from a file and process them
-char** parseFile(const char* file_path) {
+char** parseFile(const char* file_path, int* size_ref) {
     int line_count = 0;
     FILE* file = fopen(file_path, "r");
     if (!file) {
@@ -51,21 +51,31 @@ char** parseFile(const char* file_path) {
         remove_whitespaces(buffer);
 
         // Allocate memory for the line and store it
-        lines[line_count] = _strdup(buffer);
+        lines[line_count] = _strdup(buffer);  // Replace _strdup with strdup for portability
         if (!lines[line_count]) {
             perror("Error duplicating string");
-            break;
+
+            // Free previously allocated lines in case of failure
+            for (int i = 0; i < line_count; i++) {
+                free(lines[i]);
+            }
+            free(lines);
+            fclose(file);
+            return NULL;
         }
 
-        (line_count)++;
+        line_count++;
     }
 
     fclose(file);
+
+    *size_ref = line_count;
     return lines;
 }
 
+
 // Function to read a specific line from a file
-char* readSpecificLine(const char* filename, int lineNumber) {
+char* readSpecificLine(char* filename, int lineNumber) {
     FILE* file = fopen(filename, "r");
 
     if (file == NULL) {
@@ -77,18 +87,42 @@ char* readSpecificLine(const char* filename, int lineNumber) {
     int currentLine = 0;
 
     while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-        currentLine++;
         if (currentLine == lineNumber) {
             fclose(file);
             remove_whitespaces(line);
             return line;
         }
-    }
+        currentLine++;
+    } 
 
     fclose(file);
+
+
     return NULL;
 }
 
+
+int countLines(const char* file_path) {
+    FILE* file = fopen(file_path, "r");
+    if (!file) {
+        perror("Error opening file");
+        return -1;  // Return -1 to indicate an error
+    }
+
+    int line_count = 0;
+    char ch;
+
+    // Read the file character by character
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            line_count++;
+        }
+    }
+
+    fclose(file);
+
+    return line_count;
+}
 
 
 #endif
