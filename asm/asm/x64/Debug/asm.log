@@ -1,2 +1,3 @@
 ﻿  asmMain.c
-  asm.vcxproj -> C:\Users\nadav\Desktop\Computer Organization\asm\x64\Debug\asm.exe
+C:\Users\Shachar\Desktop\C\Comp.Org.Project\Computer-Organization\asm\asm\asmMain.c(152,25): warning C4018: '<': signed/unsigned mismatch
+  asm.vcxproj -> C:\Users\Shachar\Desktop\C\Comp.Org.Project\Computer-Organization\asm\x64\Debug\asm.exe

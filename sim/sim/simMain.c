@@ -40,7 +40,9 @@ int main() {
 	int (*monitor)[256] = calloc(256, sizeof(*monitor));
 
 	instructionType insturction = { 0 };
-	
+	init_dmemout(inargs[2], inargs[5]); //Initialise dmmout
+
+	// Read Input files
 
 	while (1) {
 		
@@ -62,8 +64,8 @@ int main() {
 		}
 
 		else if (insturction.opcode <= 17) {
-			executeInsturctionLwSw(insturction, registers, &PC, inargs);
-			PC += 1; //remove TODO
+			executeInsturctionLwSw(insturction, registers, &PC, *inargs[5]);
+			PC += 1; //remove
 		}
 
 		else if (insturction.opcode <= 20) {
@@ -89,5 +91,35 @@ int main() {
 	monitor_txt(monitor, inargs[13]);
 	monitor_yuv(monitor, inargs[14]);
 
+	return 0;
+};
+
+
+//dmemout = Copy of dmemin
+int initialize_dmemout(const char* sourceFilePath, const char* destinationFilePath) {
+	FILE* sourceFile = fopen(sourceFilePath, "r");
+	if (sourceFile == NULL) {
+		fprintf(stderr, "Error: Unable to open source file %s\n", sourceFilePath);
+		return -1;
+	}
+
+	FILE* destinationFile = fopen(destinationFilePath, "w");
+	if (destinationFile == NULL) {
+		fprintf(stderr, "Error: Unable to open destination file %s\n", destinationFilePath);
+		fclose(sourceFile);
+		return -1;
+	}
+
+	char buffer[1024];
+	size_t bytesRead;
+
+	while ((bytesRead = fread(buffer, 1, sizeof(buffer), sourceFile)) > 0) {
+		fwrite(buffer, 1, bytesRead, destinationFile);
+	}
+
+	fclose(sourceFile);
+	fclose(destinationFile);
+
+	printf("File copied successfully from %s to %s\n", sourceFilePath, destinationFilePath);
 	return 0;
 }
