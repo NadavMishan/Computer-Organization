@@ -17,15 +17,15 @@ typedef struct instructionType {
 
 
 // inputs an instruction as a string of a hex number and execute the right insturction.
-instructionType parseInstruction(char* instruction_imemin , int* R) {
+instructionType parseInstruction(char* instruction_imemin, int* R) {
 	/*
 	* Insturction Format:
 	0000 0000|	0000|	0000|	0000|	0000|	0000 0000 0000|		1111 1111 1111|
 	OP code		rd		rs		rt		rm		immediate1			immediate2
 	*/
-	
-	instructionType instruction = {0};
-	
+
+	instructionType instruction = { 0 };
+
 
 	// Hex -> long long unsigned
 	unsigned long long instructionVal = strtoull(instruction_imemin, NULL, 16);
@@ -39,11 +39,11 @@ instructionType parseInstruction(char* instruction_imemin , int* R) {
 	instruction.rm = (instructionVal & 0x00000F000000) >> 24;
 
 	//The imm values need to be sign extended for negative values
-	instruction.immediate1 = sign_extend_12bit((instructionVal & 0x000000FFF000) >> 12);   
+	instruction.immediate1 = sign_extend_12bit((instructionVal & 0x000000FFF000) >> 12);
 	instruction.immediate2 = sign_extend_12bit((instructionVal & 0x000000000FFF));
-	
-	printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n", 
-		instruction.opcode, instruction.rd, instruction.rs, instruction.rt, 
+
+	printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n",
+		instruction.opcode, instruction.rd, instruction.rs, instruction.rt,
 		instruction.rm, instruction.immediate1, instruction.immediate2);
 
 
@@ -51,7 +51,7 @@ instructionType parseInstruction(char* instruction_imemin , int* R) {
 	R[0] = 0;
 	R[1] = instruction.immediate1;
 	R[2] = instruction.immediate2;
-	
+
 	return instruction;
 }
 
@@ -145,7 +145,7 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 }
 
 
-int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* dmemout) { 
+int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* dmemout) {
 	switch (I.opcode)
 	{
 	case 16: // Load word (read)
@@ -160,14 +160,14 @@ int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* dmemout)
 	default:
 		break;
 	}
-	return 0; 
+	*PCadr += 1; // Update PC
+	return 0;
+	
 }
 
 
 
-
-
-int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCadr,int* irq_ptr, char* inargs[]) {
+int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCadr, int* irq_ptr, char* inargs[]) {
 	int PC = *PCadr;
 	PC += 1;
 	int RrsRrt = R[I.rs] + R[I.rt];
@@ -184,7 +184,7 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 	case 19:	// I/O - IN  (READ)
 		hwregtrace_txt(R_IO[8], "READ", RrsRrt, R_IO[RrsRrt], inargs[8]); // Check if unsigned works right TODO 
 		R[I.rd] = R_IO[RrsRrt];
-		
+
 		if (I.rd == 22) { // "A read from monitorcmd using the in instruction will return the value 0." TODO is it "return the value 0" or "return *to* 0" 
 			R[I.rd] = 0;
 		}
@@ -193,8 +193,9 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 
 	case 20:	// I/O - OUT (WRITE)
 
-		hwregtrace_txt(R_IO[8],"WRITE", RrsRrt, R[I.rm],inargs[8]);   // TODO Do you still write to the file even if it's the same value? 
+		hwregtrace_txt(R_IO[8], "WRITE", RrsRrt, R[I.rm], inargs[8]);   // TODO Do you still write to the file even if it's the same value? 
 
+		unsigned int value = R[I.rm];
 
 		switch (RrsRrt)
 		{
@@ -211,10 +212,18 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 				leds_txt_display7seg_txt(R_IO[8], R[I.rm], inargs[11]);
 			}
 			break;
+		case 14: // diskcmd
+		case 15: // disksector
+		case 16: // diskbuffer
+		case 17: // diskstatus
+
+			if (R_IO[17]) { // if the disk is busy, don't write to it
+				value = R_IO[RrsRrt];
+			}
 		}
 
-		R_IO[RrsRrt] = R[I.rm]; // Assign value to the registers 
-		
+		R_IO[RrsRrt] = value; // Assign value to the registers 
+
 		break;
 	}
 
@@ -229,5 +238,5 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 
 
 }
-	
+
 #endif

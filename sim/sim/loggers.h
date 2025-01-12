@@ -12,14 +12,14 @@
 2   dmemin.txt          Assembler
 3   diskin.txt          
 4   irq2in.txt          
-5   dmemout.txt          
+5   dmemout.txt         V 
 6   regout.txt          V
 7   trace.txt           V
 8   hwregtrace.txt      V     
 9   cycles.txt          V
 10  leds.txt            V
 11  display7seg.txt     V
-12  diskout.txt         
+12  diskout.txt         V
 13  monitor.txt         V
 14  monitor.yuv         V
 */
@@ -40,15 +40,12 @@ int regout_txt(int* R, char* filePATH) {
     }
 
     // Write all Register values from 3->15 in the PATH
-    for (int i = 3; i < 16; i++)
-    {
+    for (int i = 3; i < 16; i++){
         fprintf(file, "%08X\n", R[i]);
     }
 
     fclose(file);
     return 0; 
-
-
 }
 
 int trace_txt(int PC,char* instructionHEX,int* R, char* filePATH) {
@@ -62,9 +59,14 @@ int trace_txt(int PC,char* instructionHEX,int* R, char* filePATH) {
 
     
     // Write the line to the file
-    fprintf(file,"%03X %s %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X %08X\n", 
-        PC, instructionHEX, R[0], R[1], R[2], R[3], R[4], R[5], R[6], R[7], R[8], R[9], R[10], R[11], R[12], R[13], R[14], R[15]);
-    
+    fprintf(file,"%03X %s ", 
+        PC, instructionHEX);
+    for (int i = 0; i <16; i++){
+        fprintf(file,"%08x ", R[i]);
+    }
+	
+    fprintf(file, "\n");
+
     fclose(file);
     return 0;
 
@@ -80,7 +82,7 @@ int cycles_txt(unsigned int clk, char* filePATH) {
         return 1;
     }
    
-    fprintf(file, "%u", clk);
+    fprintf(file, "%u\n", clk);
    
     fclose(file);
     return 0;
@@ -96,7 +98,7 @@ int leds_txt_display7seg_txt(unsigned int clk, unsigned int value, char* filePAT
         return 1;
     }
 
-    fprintf(file, "%u %08X", clk, value);
+    fprintf(file, "%u %08X\n", clk, value);
 
     fclose(file);
     return 0;

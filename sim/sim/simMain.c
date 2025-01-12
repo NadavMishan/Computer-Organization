@@ -1,10 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "fileActions.h"
 #include "instructionActions.h"
 #include "loggers.h"
 #include "hardware.h"
-
+#include "LoadwordStoreword.h"
+#include "diskActions.h"
 
 /*
 0   sim.exe
@@ -26,50 +29,55 @@
 
 
 
-//int main(int argc, char* argv[]) {
+//int main(int argc, char* argv[]) { //TODO fix cmd line arguments
 int main() {
 	char* inargs[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
 		"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
 		"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
+
+	debug_deleteOutputFiles(inargs); //TODO remove this line
+
 
 	// Initialize variables
 	int registers[] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	unsigned int IO_registers[] = { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0 };
 	int PC = 0;
 	int irq = 0;
-	int (*monitor)[256] = calloc(256, sizeof(*monitor));
-
+	int (*monitor)[256] = calloc(256, sizeof(*monitor)); // Initialise monitor
 	instructionType insturction = { 0 };
-	init_dmemout(inargs[2], inargs[5]); //Initialise dmmout
+	int disk_clk = 0;
+
+	copyFile(inargs[2], inargs[5]); //Initialise dmmout
+	copyFile(inargs[3], inargs[12]); //Initialise diskout
+
+
 
 	// Read Input files
 
 	while (1) {
 		
-		interrupts(&PC, IO_registers, &irq, inargs);
 
 		printf("PC: %d\n", PC);
 		//Parse Instruction
-		
+
 		char* instructionHex = readSpecificLine(inargs[1], PC);
 
 		insturction = parseInstruction(instructionHex, registers);
-		
+
 		trace_txt(PC, instructionHex, registers, inargs[7]);
 
 		// Execute Instruction
 		if (insturction.opcode <= 15) {
 			executeInsturctionBasic(insturction, registers, &PC);
-		
+
 		}
 
 		else if (insturction.opcode <= 17) {
-			executeInsturctionLwSw(insturction, registers, &PC, *inargs[5]);
-			PC += 1; //remove
+			executeInsturctionLwSw(insturction, registers, &PC, inargs[5]);
 		}
 
 		else if (insturction.opcode <= 20) {
-			executeInsturctionIO(insturction, registers, IO_registers, &PC,&irq, inargs);
+			executeInsturctionIO(insturction, registers, IO_registers, &PC, &irq, inargs);
 		}
 
 		else {
@@ -77,13 +85,18 @@ int main() {
 			break;
 		}
 
-		printf("Registers: ");
-		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
-		printf("\n ------------------------------------------------------------\n");
+		
 
-		HardwareCycle(insturction, registers, IO_registers, inargs, monitor);
+		printf("\nRegisters: ");
+		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
+		printf("\nIO registers: ");
+		for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
+		printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
+		interrupts(&PC, IO_registers, &irq,&disk_clk, inargs);
+		HardwareCycle(insturction, registers, IO_registers, inargs, monitor, &disk_clk);
+		
 	}
-	
+
 	// End run .txt files
 
 	regout_txt(registers, inargs[6]);
@@ -93,33 +106,3 @@ int main() {
 
 	return 0;
 };
-
-
-//dmemout = Copy of dmemin
-int initialize_dmemout(const char* sourceFilePath, const char* destinationFilePath) {
-	FILE* sourceFile = fopen(sourceFilePath, "r");
-	if (sourceFile == NULL) {
-		fprintf(stderr, "Error: Unable to open source file %s\n", sourceFilePath);
-		return -1;
-	}
-
-	FILE* destinationFile = fopen(destinationFilePath, "w");
-	if (destinationFile == NULL) {
-		fprintf(stderr, "Error: Unable to open destination file %s\n", destinationFilePath);
-		fclose(sourceFile);
-		return -1;
-	}
-
-	char buffer[1024];
-	size_t bytesRead;
-
-	while ((bytesRead = fread(buffer, 1, sizeof(buffer), sourceFile)) > 0) {
-		fwrite(buffer, 1, bytesRead, destinationFile);
-	}
-
-	fclose(sourceFile);
-	fclose(destinationFile);
-
-	printf("File copied successfully from %s to %s\n", sourceFilePath, destinationFilePath);
-	return 0;
-}
