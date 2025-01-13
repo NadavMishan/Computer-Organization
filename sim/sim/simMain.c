@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "fileActions.h"
 #include "instructionActions.h"
 #include "loggers.h"
 #include "hardware.h"
 #include "LoadwordStoreword.h"
-//#include "diskActions.h"
+#include "diskActions.h"
 
 /*
 0   sim.exe
@@ -28,15 +29,22 @@
 */
 
 
+/*
+cmd command : sim.exe imemin.txt dmemin.txt diskin.txt irq2in.txt dmemout.txt regout.txt trace.txt hwregtrace.txt cycles.txt leds.txt display7seg.txt diskout.txt monitor.txt monitor.yuv
+*/
 
-int main(int argc, char* argv[]) { //TODO fix cmd line arguments
-	//int main() {
-	//argv[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
+int main(int argc, char* argv[]) {
+
+//int main() {
+	//char* argv[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
 	//"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
-	//"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
+	//	"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
 
+	/*for (int i = 0; i < argc; i++) {
+		printf("argv %d, %s\n",i, argv[i]);
+	}*/
 
-	debug_deleteOutputFiles(argv); //TODO remove this line
+	//debug_deleteOutputFiles(argv); //TODO remove this line
 
 
 	// Initialize variables
@@ -48,17 +56,25 @@ int main(int argc, char* argv[]) { //TODO fix cmd line arguments
 	instructionType insturction = { 0 };
 	int disk_clk = 0;
 
+
+	// Some files are written in "append" mode, so they might never be written to in the run.
+	for (int i = 0; i < 12; i++)
+	{
+		if (i == 3 || i == 4 || i == 8 || i == 10 || i == 11) {
+			ensureFileExists(argv[i]);
+		}
+	}
+	
 	copyFile(argv[2], argv[5]); //Initialise dmmout
 	copyFile(argv[3], argv[12]); //Initialise diskout
 
 
-
 	// Read Input files
-
+	
 	while (1) {
-
-
-		printf("PC: %d\n", PC);
+		
+		
+		printf("PC: %03X CLK: %d\n", PC,IO_registers[8]);
 		//Parse Instruction
 
 		char* instructionHex = readSpecificLine(argv[1], PC);
@@ -89,14 +105,17 @@ int main(int argc, char* argv[]) { //TODO fix cmd line arguments
 
 
 
-		printf("\nRegisters: ");
-		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
+		/*printf("\nRegisters: ");
+		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);*/
 		printf("\nIO registers: ");
 		for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
 		printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
+
 		interrupts(&PC, IO_registers, &irq, &disk_clk, argv);
 		HardwareCycle(insturction, registers, IO_registers, argv, monitor, &disk_clk);
 
+
+		//if (IO_registers[8] == 100) break;
 	}
 
 	// End run .txt files

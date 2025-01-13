@@ -24,9 +24,11 @@ int interrupts(int* PC_ptr, int* R_IO, int* irq_ptr, int* disk_clk, char* inargs
 
 	// ----- IRQ0 -----
 	// Reset the timer and set irqstatus0 
-	if (R_IO[12] == R_IO[13]) {		// timercurrent == timermax
-		R_IO[12] = 0;				// reset timer 
-		R_IO[3] = 1; 				// set irq0status
+	if (R_IO[13] > 0) {
+		if (R_IO[12] == R_IO[13]) {		// timercurrent == timermax
+			R_IO[12] = 0;				// reset timer 
+			R_IO[3] = 1; 				// set irq0status
+		}
 	}
 
 	// ----- IRQ1 -----
@@ -35,27 +37,17 @@ int interrupts(int* PC_ptr, int* R_IO, int* irq_ptr, int* disk_clk, char* inargs
 		R_IO[4] = 1;				// set irq1status
 		R_IO[14] = 0;				// reset diskcmd
 		R_IO[17] = 0;				// reset diskstatus
-
+	
 	}
 
 
 	// ----- IRQ2 -----
-	unsigned int irq2_clk;
-	int irq2_size = countLines(inargs[4]);
 
-	for (int i = 0; i < irq2_size + 1; i++) { //TODO fix implementation, if irq2 is big it will take a long time
-		char* irq2_str = readSpecificLine(inargs[4], i);
-		if (irq2_str) {
-			irq2_clk = strtol(irq2_str, NULL, 10);
-		}
-
-		if (irq2_clk == R_IO[8]) {
-			R_IO[5] = 1;
-			break;
-		}
-		else {
-			R_IO[5] = 0;
-		}
+	if (findValueInFile(inargs[4], R_IO[8])) {
+		R_IO[5] = 1;
+	}
+	else {
+		R_IO[5] = 0;
 	}
 
 	// Call ISR
@@ -109,10 +101,10 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 		// Do nothing
 		break;
 	case 1: // Read
-		//copy128lines(diskoutFilePath, 128 * R_IO[15], dmemoutFilePath, R_IO[16]);
+		copy128lines(diskoutFilePath, 128 * R_IO[15], dmemoutFilePath, R_IO[16]);
 		R_IO[17] = 1; // diskstatus
 	case 2: // Write
-		//copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, 128 * R_IO[15]);
+		copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, 128 * R_IO[15]);
 		R_IO[17] = 1; // diskstatus
 		break;
 

@@ -41,7 +41,7 @@ int regout_txt(int* R, char* filePATH) {
 
     // Write all Register values from 3->15 in the PATH
     for (int i = 3; i < 16; i++){
-        fprintf(file, "%08X\n", R[i]);
+        fprintf(file, "%08x\n", R[i]);
     }
 
     fclose(file);
@@ -98,7 +98,7 @@ int leds_txt_display7seg_txt(unsigned int clk, unsigned int value, char* filePAT
         return 1;
     }
 
-    fprintf(file, "%u %08X\n", clk, value);
+    fprintf(file, "%u %08x\n", clk, value);
 
     fclose(file);
     return 0;
@@ -148,7 +148,7 @@ int hwregtrace_txt(unsigned int clk, char* Read_Write, int register_number, unsi
         perror("Error opening file");
         return 1;
     }
-    fprintf(file, "%u %s %s %08X\n", clk, Read_Write, device_name, data);
+    fprintf(file, "%u %s %s %08x\n", clk, Read_Write, device_name, data);
     fclose(file);
     return 0;
 

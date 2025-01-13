@@ -127,8 +127,10 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 		break;
 
 	case 15: //jal 
+
 		R[I.rd] = PC; // PC = PC +1
 		PC = R_rm_12bits;
+		printf("jal: PC: %d, return addr: %d\n", PC, R[I.rd]);
 		break;
 
 	}
@@ -182,7 +184,7 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 		break;
 
 	case 19:	// I/O - IN  (READ)
-		hwregtrace_txt(R_IO[8], "READ", RrsRrt, R_IO[RrsRrt], inargs[8]); // Check if unsigned works right TODO 
+		hwregtrace_txt(R_IO[8], "READ", RrsRrt, R_IO[RrsRrt], inargs[8]);  
 		R[I.rd] = R_IO[RrsRrt];
 
 		if (I.rd == 22) { // "A read from monitorcmd using the in instruction will return the value 0." TODO is it "return the value 0" or "return *to* 0" 
@@ -193,7 +195,7 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 
 	case 20:	// I/O - OUT (WRITE)
 
-		hwregtrace_txt(R_IO[8], "WRITE", RrsRrt, R[I.rm], inargs[8]);   // TODO Do you still write to the file even if it's the same value? 
+		hwregtrace_txt(R_IO[8], "WRITE", RrsRrt, R[I.rm], inargs[8]);   
 
 		unsigned int value = R[I.rm];
 

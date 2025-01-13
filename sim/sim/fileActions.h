@@ -21,59 +21,6 @@ void remove_whitespaces(char* str) {
 	*write = '\0';
 }
 
-// Function to read lines from a file and process them
-char** parseFile(const char* file_path, int* size_ref) {
-	int line_count = 0;
-	FILE* file = fopen(file_path, "r");
-	if (!file) {
-		perror("Error opening file");
-		return NULL;
-	}
-
-	char** lines = (char**)malloc(MAX_LINES * sizeof(char*));
-	if (!lines) {
-		perror("Error allocating memory");
-		fclose(file);
-		return NULL;
-	}
-
-	char buffer[MAX_LINE_LENGTH];
-	line_count = 0;
-
-	while (fgets(buffer, sizeof(buffer), file)) {
-		if (line_count >= MAX_LINES) {
-			fprintf(stderr, "Exceeded maximum number of lines (%d).\n", MAX_LINES);
-			break;
-		}
-
-		// Remove trailing newline
-		buffer[strcspn(buffer, "\n")] = '\0';
-		remove_whitespaces(buffer);
-
-		// Allocate memory for the line and store it
-		lines[line_count] = _strdup(buffer);  // Replace _strdup with strdup for portability
-		if (!lines[line_count]) {
-			perror("Error duplicating string");
-
-			// Free previously allocated lines in case of failure
-			for (int i = 0; i < line_count; i++) {
-				free(lines[i]);
-			}
-			free(lines);
-			fclose(file);
-			return NULL;
-		}
-
-		line_count++;
-	}
-
-	fclose(file);
-
-	*size_ref = line_count;
-	return lines;
-}
-
-
 // Function to read a specific line from a file
 char* readSpecificLine(char* filename, int lineNumber) {
 	FILE* file = fopen(filename, "r");
@@ -162,6 +109,47 @@ int copyFile(const char* sourceFilePath, const char* destinationFilePath) {
 	return 0;
 }
 
+bool findValueInFile(const char* filename, unsigned int value) {
+	FILE* file = fopen(filename, "r");
+	if (file == NULL) {
+		perror("Error opening file");
+		return false;
+	}
+
+	unsigned int currentValue;
+	while (fscanf(file, "%u", &currentValue) == 1) {
+		if (currentValue == value) {
+			fclose(file);
+			return true; // Value found
+		}
+	}
+
+	fclose(file);
+	return false; // Value not found
+}
+
+void ensureFileExists(const char* filepath) {
+	// Try to open the file in read mode to check if it exists
+	FILE* file = fopen(filepath, "r");
+
+	if (file == NULL) {
+		// File doesn't exist, so create it in write mode
+		file = fopen(filepath, "w");
+		if (file == NULL) {
+			perror("Error creating file");
+			exit(EXIT_FAILURE);
+		}
+		else {
+			printf("File '%s' created successfully.\n", filepath);
+		}
+	}
+	else {
+		printf("File '%s' already exists.\n", filepath);
+	}
+
+	// Close the file if it was opened
+	fclose(file);
+}
 
 int debug_deleteOutputFiles(char* file_paths[]) {
 	for (int i = 5; i < 15; i++) {
@@ -180,4 +168,6 @@ int debug_deleteOutputFiles(char* file_paths[]) {
 
 	return 0;
 }
+
+
 #endif

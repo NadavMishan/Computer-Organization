@@ -30,7 +30,7 @@ int memWrite(int address, int value, char* dmemout_txt) {
         return -1;
     }
 
-    char line[256];
+    char line[128];
     int current_line = 0;
     int written = 0;
 
@@ -40,15 +40,14 @@ int memWrite(int address, int value, char* dmemout_txt) {
             // Write the new value in the target address
             fprintf(temp_file, "%08X\n", value);
             written = 1;
-        }
-        else {
+        } else {
             // Copy the existing line to the temp file
             fputs(line, temp_file);
         }
         current_line++;
     }
 
-    // Fill missing lines with 0000 if address is beyond the last line
+    // Fill missing lines with 00000000 if address is beyond the last line
     while (current_line < address) {
         fprintf(temp_file, "00000000\n");
         current_line++;
