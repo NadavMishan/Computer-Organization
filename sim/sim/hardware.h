@@ -109,10 +109,10 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 		// Do nothing
 		break;
 	case 1: // Read
-		copy128lines(diskoutFilePath, 128 * R_IO[15], dmemoutFilePath, R_IO[16]);
+		//copy128lines(diskoutFilePath, 128 * R_IO[15], dmemoutFilePath, R_IO[16]);
 		R_IO[17] = 1; // diskstatus
 	case 2: // Write
-		copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, 128 * R_IO[15]);
+		//copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, 128 * R_IO[15]);
 		R_IO[17] = 1; // diskstatus
 		break;
 

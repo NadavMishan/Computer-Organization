@@ -148,7 +148,7 @@ int copyFile(const char* sourceFilePath, const char* destinationFilePath) {
 		return -1;
 	}
 
-	char buffer[1024];
+	char buffer[MAX_LINE_LENGTH];
 	size_t bytesRead;
 
 	while ((bytesRead = fread(buffer, 1, sizeof(buffer), sourceFile)) > 0) {

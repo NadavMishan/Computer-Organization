@@ -7,7 +7,7 @@
 #include "loggers.h"
 #include "hardware.h"
 #include "LoadwordStoreword.h"
-#include "diskActions.h"
+//#include "diskActions.h"
 
 /*
 0   sim.exe
@@ -29,13 +29,14 @@
 
 
 
-//int main(int argc, char* argv[]) { //TODO fix cmd line arguments
-int main() {
-	char* inargs[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
-		"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
-		"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
+int main(int argc, char* argv[]) { //TODO fix cmd line arguments
+	//int main() {
+	//argv[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
+	//"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
+	//"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
 
-	debug_deleteOutputFiles(inargs); //TODO remove this line
+
+	debug_deleteOutputFiles(argv); //TODO remove this line
 
 
 	// Initialize variables
@@ -47,24 +48,24 @@ int main() {
 	instructionType insturction = { 0 };
 	int disk_clk = 0;
 
-	copyFile(inargs[2], inargs[5]); //Initialise dmmout
-	copyFile(inargs[3], inargs[12]); //Initialise diskout
+	copyFile(argv[2], argv[5]); //Initialise dmmout
+	copyFile(argv[3], argv[12]); //Initialise diskout
 
 
 
 	// Read Input files
 
 	while (1) {
-		
+
 
 		printf("PC: %d\n", PC);
 		//Parse Instruction
 
-		char* instructionHex = readSpecificLine(inargs[1], PC);
+		char* instructionHex = readSpecificLine(argv[1], PC);
 
 		insturction = parseInstruction(instructionHex, registers);
 
-		trace_txt(PC, instructionHex, registers, inargs[7]);
+		trace_txt(PC, instructionHex, registers, argv[7]);
 
 		// Execute Instruction
 		if (insturction.opcode <= 15) {
@@ -73,36 +74,36 @@ int main() {
 		}
 
 		else if (insturction.opcode <= 17) {
-			executeInsturctionLwSw(insturction, registers, &PC, inargs[5]);
+			executeInsturctionLwSw(insturction, registers, &PC, argv[5]);
 		}
 
 		else if (insturction.opcode <= 20) {
-			executeInsturctionIO(insturction, registers, IO_registers, &PC, &irq, inargs);
+			executeInsturctionIO(insturction, registers, IO_registers, &PC, &irq, argv);
 		}
 
 		else {
+			IO_registers[8] += 1;
 			printf("----------------		Program Halted		----------------\n");
 			break;
 		}
 
-		
+
 
 		printf("\nRegisters: ");
 		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
 		printf("\nIO registers: ");
 		for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
 		printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
-		interrupts(&PC, IO_registers, &irq,&disk_clk, inargs);
-		HardwareCycle(insturction, registers, IO_registers, inargs, monitor, &disk_clk);
-		
+		interrupts(&PC, IO_registers, &irq, &disk_clk, argv);
+		HardwareCycle(insturction, registers, IO_registers, argv, monitor, &disk_clk);
+
 	}
 
 	// End run .txt files
-
-	regout_txt(registers, inargs[6]);
-	cycles_txt(IO_registers[8], inargs[9]);
-	monitor_txt(monitor, inargs[13]);
-	monitor_yuv(monitor, inargs[14]);
+	regout_txt(registers, argv[6]);
+	cycles_txt(IO_registers[8], argv[9]);
+	monitor_txt(monitor, argv[13]);
+	monitor_yuv(monitor, argv[14]);
 
 	return 0;
 };
