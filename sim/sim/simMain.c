@@ -7,8 +7,8 @@
 #include "instructionActions.h"
 #include "loggers.h"
 #include "hardware.h"
-#include "LoadwordStoreword.h"
-#include "diskActions.h"
+//#include "LoadwordStoreword.h"
+//#include "diskActions.h"
 
 /*
 0   sim.exe
@@ -34,17 +34,23 @@ cmd command : sim.exe imemin.txt dmemin.txt diskin.txt irq2in.txt dmemout.txt re
 */
 
 int main(int argc, char* argv[]) {
+	char* default_args[15] = {
+	   "sim.exe", "imemin.txt", "dmemin.txt", "diskin.txt", "irq2in.txt",
+	   "dmemout.txt", "regout.txt", "trace.txt", "hwregtrace.txt", "cycles.txt",
+	   "leds.txt", "display7seg.txt", "diskout.txt", "monitor.txt", "monitor.yuv"
+	};
 
-//int main() {
-	//char* argv[] = { "sim.exe","imemin.txt","dmemin.txt","diskin.txt","irq2in.txt",
-	//"dmemout.txt","regout.txt","trace.txt","hwregtrace.txt","cycles.txt","leds.txt",
-	//	"display7seg.txt","diskout.txt","monitor.txt","monitor.yuv" };
+	if (argc == 1) {
+		// Replace argc and argv contents with default values
+		argc = 15;
+		argv = default_args;  // Point argv to the new array
+	}
 
 	/*for (int i = 0; i < argc; i++) {
 		printf("argv %d, %s\n",i, argv[i]);
 	}*/
 
-	//debug_deleteOutputFiles(argv); //TODO remove this line
+	debug_deleteOutputFiles(argv); //TODO remove this line
 
 
 	// Initialize variables
@@ -124,5 +130,6 @@ int main(int argc, char* argv[]) {
 	monitor_txt(monitor, argv[13]);
 	monitor_yuv(monitor, argv[14]);
 
+	//debug_deleteOutputFiles(argv);
 	return 0;
 };

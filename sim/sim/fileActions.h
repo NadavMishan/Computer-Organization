@@ -170,4 +170,24 @@ int debug_deleteOutputFiles(char* file_paths[]) {
 }
 
 
+int debug_easyDiskData() {
+	FILE* temp = fopen("easyDiskData.txt", "w");
+	if (!temp) {
+		perror("Error creating temporary file");
+		return 1;
+	}
+
+	int sector = 0;
+	for (int sector = 0; sector < 12; sector++)
+	{
+		for (int line = 0; line < 128; line++)
+		{
+			fprintf(temp, "%03X", sector);
+			fprintf(temp, "%05X\n", line);
+		}
+	}
+	fclose(temp);
+	return 0;
+}
+
 #endif

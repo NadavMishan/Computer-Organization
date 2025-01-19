@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "diskActions.h"
 
 /* R_IO
 --Interrupts--					--Devices--				--DiskDrive--			--Monitor--
@@ -94,22 +95,25 @@ int monitorWrite(unsigned int* R_IO, int monitor[256][256]) { // TODO : who retu
 }
 
 int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* disk_clk) {
-
-	switch (R_IO[14]) // diskcmd
-	{
-	case 0:
-		// Do nothing
-		break;
-	case 1: // Read
-		copy128lines(diskoutFilePath, 128 * R_IO[15], dmemoutFilePath, R_IO[16]);
-		R_IO[17] = 1; // diskstatus
-	case 2: // Write
-		copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, 128 * R_IO[15]);
-		R_IO[17] = 1; // diskstatus
-		break;
-
-	default:
-		break;
+	int sector = 128 * R_IO[15];
+	if (!R_IO[17]) {
+		switch (R_IO[14]) // diskcmd
+		{
+		case 0:
+			// Do nothing
+			break;
+		case 1: // Read
+			printf("--------- Disk Read ---------\n");
+			printf("in: %s, sector %d, out: %s, line: %d",diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
+			copy128lines(diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
+			R_IO[17] = 1; // diskstatus
+		case 2: // Write
+			printf("--------- Disk Write ---------\n");
+			copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, sector);
+			R_IO[17] = 1; // diskstatus
+			break;
+			;
+		}
 	}
 
 	if (R_IO[17]) { // raise the timer if the disk is busy
@@ -119,7 +123,8 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 	}
 }
 
-int HardwareCycle(instructionType I, int* R, unsigned int* R_IO, char* inargs, int monitor[256][256], int* disk_clk) {
+int HardwareCycle(instructionType I, int* R, unsigned int* R_IO, char* inargs[], int monitor[256][256], int* disk_clk) {
+	//printf("%s, %s", inargs[5], inargs[12]);
 	disk(R_IO, inargs[5], inargs[12], disk_clk);
 
 	Clk(R_IO);

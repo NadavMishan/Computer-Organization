@@ -10,7 +10,9 @@
 // Function to copy 128 lines from one file to another
 
 int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int lineWrite) {
-	
+	printf("Copying 128 lines from %s to %s\n", filePathRead, filePathWrite);
+	printf("Copying from line %d to line %d\n", lineRead, lineWrite);
+
 	// Read 128 lines from the source file
     FILE* source = fopen(filePathRead, "r");
 	int copy[128] = { 0 };
@@ -23,7 +25,7 @@ int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int line
 	char buffer[LINE_LENGTH];
 	if (source == NULL) {
 		perror("Error opening source file");
-		return;
+		return 1;
 	}
 	int j = 0;
 	for (int i = 0; i < (128 + lineRead); i++) {
@@ -42,14 +44,14 @@ int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int line
     FILE* dest = fopen(filePathWrite, "r");
     if (!dest) {
         perror("Error opening file");
-        return;
+        return 1;
     }
 
     FILE* temp = fopen("temp.txt", "w");
     if (!temp) {
         perror("Error creating temporary file");
         fclose(dest);
-        return;
+        return 1;
     }
     
 	int current_line = 0;
@@ -85,7 +87,7 @@ int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int line
     // Replace the original file with the temporary file
     if (remove(filePathWrite) != 0) {
         perror("Error deleting original file");
-        return;
+        return 1;
     }
     if (rename("temp.txt", filePathWrite) != 0) {
         perror("Error renaming temporary file");

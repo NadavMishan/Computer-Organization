@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utils.h"
+#include "LoadwordStoreword.h"
 
 typedef struct instructionType {
 	int opcode;
