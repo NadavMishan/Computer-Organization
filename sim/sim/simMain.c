@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 	   "leds.txt", "display7seg.txt", "diskout.txt", "monitor.txt", "monitor.yuv"
 	};
 
-	if (argc == 1) {
+	if (argc < 5) {
 		// Replace argc and argv contents with default values
 		argc = 15;
 		argv = default_args;  // Point argv to the new array
@@ -113,9 +113,9 @@ int main(int argc, char* argv[]) {
 
 		/*printf("\nRegisters: ");
 		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);*/
-		printf("\nIO registers: ");
-		for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
-		printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
+		//printf("\nIO registers: ");
+		//for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
+		//printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
 
 		interrupts(&PC, IO_registers, &irq, &disk_clk, argv);
 		HardwareCycle(insturction, registers, IO_registers, argv, monitor, &disk_clk);

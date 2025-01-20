@@ -107,6 +107,7 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 			printf("in: %s, sector %d, out: %s, line: %d",diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
 			copy128lines(diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
 			R_IO[17] = 1; // diskstatus
+			break;
 		case 2: // Write
 			printf("--------- Disk Write ---------\n");
 			copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, sector);
