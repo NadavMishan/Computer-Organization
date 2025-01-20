@@ -76,7 +76,7 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 		break;
 
 	case 2:	//mac
-		R[I.rd] = R[I.rs] * R[I.rt] - R[I.rm];
+		R[I.rd] = R[I.rs] * R[I.rt] + R[I.rm];
 		break;
 
 	case 3:	//and
