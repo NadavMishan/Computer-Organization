@@ -1,7 +1,7 @@
 add $s1,$zero,$zero,$zero,0,0
 add $s2,$zero,$zero,$zero,0,0
 add $t2,$zero,$zero,$zero,0,0
-add $a2,$zero,$imm1,$zero,0,0 
+add $a2,$zero,$imm1,$zero,256,0 
 add $t0,$zero,$zero,$zero,0,0
 add $v0,$zero,$zero,$zero,0,0
 add $gp,$imm1,$zero,$zero,32,0 # gp =32
@@ -33,38 +33,39 @@ sub $v0,$v0,$v0,$zero,0,0   #initialize $v0 = 0
 beq $zero,$zero,$zero,$imm2,0,Loop
 finish:
 halt $zero,$zero,$zero,$zero,0,0
-    .word 0 1      # MEM[0] = 1
-    .word 1 0      # MEM[1] = 0
-    .word 2 0      # MEM[2] = 0
-    .word 3 0      # MEM[3] = 0
-    .word 4 0      # MEM[4] = 0
-    .word 5 2      # MEM[5] = 2
-    .word 6 0      # MEM[6] = 0
-    .word 7 0      # MEM[7] = 0
-    .word 8 0      # MEM[8] = 0
-    .word 9 0      # MEM[9] = 0
-    .word 10 3     # MEM[10] = 3
-    .word 11 0     # MEM[11] = 0
-    .word 12 0     # MEM[12] = 0
-    .word 13 0     # MEM[13] = 0
-    .word 14 0     # MEM[14] = 0
-    .word 15 4     # MEM[15] = 4
-    .word 16 1     # MEM[16] = 1
-    .word 17 0     # MEM[17] = 0
-    .word 18 0     # MEM[18] = 0
-    .word 19 0     # MEM[19] = 0
-    .word 20 0     # MEM[20] = 0
-    .word 21 2     # MEM[21] = 2
-    .word 22 0     # MEM[22] = 0
-    .word 23 0     # MEM[23] = 0
-    .word 24 0     # MEM[24] = 0
-    .word 25 0     # MEM[25] = 0
-    .word 26 3     # MEM[26] = 3
-    .word 27 0     # MEM[27] = 0
-    .word 28 0     # MEM[28] = 0
-    .word 29 0     # MEM[29] = 0
-    .word 30 0     # MEM[30] = 0
-    .word 31 4     # MEM[31] = 4
+    .word 255 1      # MEM[255] = 1
+    .word 256 0      # MEM[256] = 0
+    .word 257 0      # MEM[257] = 0
+    .word 258 0      # MEM[258] = 0
+    .word 259 0      # MEM[259] = 0
+    .word 260 2      # MEM[260] = 2
+    .word 261 0      # MEM[261] = 0
+    .word 262 0      # MEM[262] = 0
+    .word 263 0      # MEM[263] = 0
+    .word 264 0      # MEM[264] = 0
+    .word 265 3      # MEM[265] = 3
+    .word 266 0      # MEM[266] = 0
+    .word 267 0      # MEM[267] = 0
+    .word 268 0      # MEM[268] = 0
+    .word 269 0      # MEM[269] = 0
+    .word 270 4      # MEM[270] = 4
+    .word 271 1      # MEM[271] = 1
+    .word 272 0      # MEM[272] = 0
+    .word 273 0      # MEM[273] = 0
+    .word 274 0      # MEM[274] = 0
+    .word 275 0      # MEM[275] = 0
+    .word 276 2      # MEM[276] = 2
+    .word 277 0      # MEM[277] = 0
+    .word 278 0      # MEM[278] = 0
+    .word 279 0      # MEM[279] = 0
+    .word 280 0      # MEM[280] = 0
+    .word 281 3      # MEM[281] = 3
+    .word 282 0      # MEM[282] = 0
+    .word 283 0      # MEM[283] = 0
+    .word 284 0      # MEM[284] = 0
+    .word 285 0      # MEM[285] = 0
+    .word 286 4      # MEM[286] = 4
+
 
     
 
