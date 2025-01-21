@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "utils.h"
 #include "fileActions.h"
 #include "instructionActions.h"
 #include "loggers.h"
 #include "hardware.h"
-//#include "LoadwordStoreword.h"
-//#include "diskActions.h"
+#include "LoadwordStoreword.h"
+#include "diskActions.h"
 
 /*
 0   sim.exe
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]) {
 	   "leds.txt", "display7seg.txt", "diskout.txt", "monitor.txt", "monitor.yuv"
 	};
 
-	if (argc == 1) {
+	if (argc < 5) {
 		// Replace argc and argv contents with default values
 		argc = 15;
 		argv = default_args;  // Point argv to the new array
@@ -60,7 +61,7 @@ int main(int argc, char* argv[]) {
 	int irq = 0;
 	int (*monitor)[256] = calloc(256, sizeof(*monitor)); // Initialise monitor
 	instructionType insturction = { 0 };
-	int disk_clk = 0;
+	unsigned int disk_clk = 0;
 
 
 	// Some files are written in "append" mode, so they might never be written to in the run.
@@ -104,7 +105,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		else {
-			IO_registers[8] += 1;
+			IO_registers[8] += 1; 
 			printf("----------------		Program Halted		----------------\n");
 			break;
 		}
@@ -113,9 +114,9 @@ int main(int argc, char* argv[]) {
 
 		/*printf("\nRegisters: ");
 		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);*/
-		printf("\nIO registers: ");
-		for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
-		printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
+		//printf("\nIO registers: ");
+		//for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
+		//printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
 
 		interrupts(&PC, IO_registers, &irq, &disk_clk, argv);
 		HardwareCycle(insturction, registers, IO_registers, argv, monitor, &disk_clk);
@@ -126,7 +127,7 @@ int main(int argc, char* argv[]) {
 
 	// End run .txt files
 	regout_txt(registers, argv[6]);
-	cycles_txt(IO_registers[8], argv[9]);
+	cycles_txt(IO_registers[8],disk_clk, argv[9]);
 	monitor_txt(monitor, argv[13]);
 	monitor_yuv(monitor, argv[14]);
 

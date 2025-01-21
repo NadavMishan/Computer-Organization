@@ -63,6 +63,7 @@ int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int line
 			else {
 				fprintf(temp, "%s", buffer);
 			}
+			current_line++;
         }
 
 	// 0 padding is needed

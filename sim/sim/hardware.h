@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "diskActions.h"
+//#include "diskActions.h"
 
 /* R_IO
 --Interrupts--					--Devices--				--DiskDrive--			--Monitor--
@@ -94,7 +94,7 @@ int monitorWrite(unsigned int* R_IO, int monitor[256][256]) { // TODO : who retu
 	return 0;
 }
 
-int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* disk_clk) {
+int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, unsigned int* disk_clk) {
 	int sector = 128 * R_IO[15];
 	if (!R_IO[17]) {
 		switch (R_IO[14]) // diskcmd
@@ -107,6 +107,7 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 			printf("in: %s, sector %d, out: %s, line: %d",diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
 			copy128lines(diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
 			R_IO[17] = 1; // diskstatus
+			break;
 		case 2: // Write
 			printf("--------- Disk Write ---------\n");
 			copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, sector);
@@ -123,7 +124,7 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, int* 
 	}
 }
 
-int HardwareCycle(instructionType I, int* R, unsigned int* R_IO, char* inargs[], int monitor[256][256], int* disk_clk) {
+int HardwareCycle(instructionType I, int* R, unsigned int* R_IO, char* inargs[], int monitor[256][256], unsigned int* disk_clk) {
 	//printf("%s, %s", inargs[5], inargs[12]);
 	disk(R_IO, inargs[5], inargs[12], disk_clk);
 

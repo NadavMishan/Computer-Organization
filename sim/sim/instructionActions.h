@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "utils.h"
-#include "LoadwordStoreword.h"
+//#include "utils.h"
+//#include "LoadwordStoreword.h"
 
 typedef struct instructionType {
 	int opcode;
 	int rd;
-	int rs;
+	int rs; 
 	int rt;
 	int rm;
 	int immediate1;
@@ -30,7 +30,7 @@ instructionType parseInstruction(char* instruction_imemin, int* R) {
 
 	// Hex -> long long unsigned
 	unsigned long long instructionVal = strtoull(instruction_imemin, NULL, 16);
-	printf("instruction: %s | %llu \n", instruction_imemin, instructionVal);
+	//printf("instruction: %s | %llu \n", instruction_imemin, instructionVal);
 
 	// Parse specific values for instruction
 	instruction.opcode = (instructionVal & 0xFF0000000000) >> 40; // We know that last 16 bits are 0 (Logical/ Arithmetic shift doesn't matter)
@@ -43,9 +43,9 @@ instructionType parseInstruction(char* instruction_imemin, int* R) {
 	instruction.immediate1 = sign_extend_12bit((instructionVal & 0x000000FFF000) >> 12);
 	instruction.immediate2 = sign_extend_12bit((instructionVal & 0x000000000FFF));
 
-	printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n",
-		instruction.opcode, instruction.rd, instruction.rs, instruction.rt,
-		instruction.rm, instruction.immediate1, instruction.immediate2);
+	//printf("opcode: %d\t rd: %d\t rs: %d\t rt: %d\t rm: %d\t immediate1: %d\t immediate2: %d\n",
+		//instruction.opcode, instruction.rd, instruction.rs, instruction.rt,
+		//instruction.rm, instruction.immediate1, instruction.immediate2);
 
 
 	// Assign values for $0, $imm1, $imm2
