@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "utils.h"
-#include "LoadwordStoreword.h"
+//#include "utils.h"
+//#include "LoadwordStoreword.h"
 
 typedef struct instructionType {
 	int opcode;
 	int rd;
-	int rs;
+	int rs; 
 	int rt;
 	int rm;
 	int immediate1;

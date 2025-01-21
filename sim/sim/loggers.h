@@ -73,16 +73,20 @@ int trace_txt(int PC,char* instructionHEX,int* R, char* filePATH) {
 
 }
 
-int cycles_txt(unsigned int clk, char* filePATH) {
+int cycles_txt(unsigned int clk, unsigned int disk_clk, char* filePATH) {
     // Try to open the file in append mode
     FILE* file = fopen(filePATH, "w");
-
+    unsigned int cycles = clk;
     if (file == NULL) {
         perror("Error opening file");
         return 1;
     }
-   
-    fprintf(file, "%u\n", clk);
+
+    if (disk_clk != 0) {
+        cycles = cycles + 1024 - disk_clk;
+    }
+    
+    fprintf(file, "%u\n", cycles);
    
     fclose(file);
     return 0;
