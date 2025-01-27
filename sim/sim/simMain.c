@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 		printf("argv %d, %s\n",i, argv[i]);
 	}*/
 
-	debug_deleteOutputFiles(argv); //TODO remove this line
+	debug_deleteOutputFiles(argv); //TODO remove this line?
 
 
 	// Initialize variables
@@ -82,11 +82,12 @@ int main(int argc, char* argv[]) {
 		
 		
 		printf("PC: %03X CLK: %d\n", PC,IO_registers[8]);
-		//Parse Instruction
-
+		
+		// fetch Instruction
 		char* instructionHex = readSpecificLine(argv[1], PC);
 
-		insturction = parseInstruction(instructionHex, registers);
+		// Decode Instruction
+		insturction = decodeInstruction(instructionHex, registers);
 
 		trace_txt(PC, instructionHex, registers, argv[7]);
 
@@ -118,11 +119,14 @@ int main(int argc, char* argv[]) {
 		//for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
 		//printf("\n ------------------------------------------------------------------------------------------------------------------------\n");
 
+		// --- Hardware and I/O operations ---
+		
+		// Check for interrupts
 		interrupts(&PC, IO_registers, &irq, &disk_clk, argv);
-		HardwareCycle(insturction, registers, IO_registers, argv, monitor, &disk_clk);
 
+		// Run the "parralel" hardware operations
+		HardwareCycle(IO_registers, argv, monitor, &disk_clk);
 
-		//if (IO_registers[8] == 100) break;
 	}
 
 	// End run .txt files

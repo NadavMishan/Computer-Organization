@@ -52,7 +52,7 @@ int interrupts(int* PC_ptr, int* R_IO, int* irq_ptr, int* disk_clk, char* inargs
 	}
 
 	// Call ISR
-	if (!*irq_ptr) {
+	if (!*irq_ptr) { // Don't call ISR if already in ISR
 		if ((R_IO[0] & R_IO[3]) | (R_IO[1] & R_IO[4]) | (R_IO[2] & R_IO[5])) {
 			printf("\n --------------	irq triggered	---------------\n");
 			printf("enable: 0) %d		1) %d		2) %d	\nstatus: 0) %d		1) %d		2) %d\n", R_IO[0], R_IO[1], R_IO[2], R_IO[3], R_IO[4], R_IO[5]);
@@ -85,7 +85,7 @@ int Timer(unsigned int* R_IO) {
 	return 0;
 }
 
-int monitorWrite(unsigned int* R_IO, int monitor[256][256]) { // TODO : who returns monitorcmd back to zero?
+int monitorWrite(unsigned int* R_IO, int monitor[256][256]) { 
 	int row = floor(R_IO[20] / 256);
 	int col = R_IO[20] % 256;
 	if (R_IO[22]) {
@@ -105,12 +105,12 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, unsig
 		case 1: // Read
 			printf("--------- Disk Read ---------\n");
 			printf("in: %s, sector %d, out: %s, line: %d",diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
-			copy128lines(diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
+			diskReadWrite(diskoutFilePath, sector, dmemoutFilePath, R_IO[16]);
 			R_IO[17] = 1; // diskstatus
 			break;
 		case 2: // Write
 			printf("--------- Disk Write ---------\n");
-			copy128lines(dmemoutFilePath, R_IO[16], diskoutFilePath, sector);
+			diskReadWrite(dmemoutFilePath, R_IO[16], diskoutFilePath, sector);
 			R_IO[17] = 1; // diskstatus
 			break;
 			;
@@ -124,7 +124,7 @@ int disk(unsigned int* R_IO, char* dmemoutFilePath, char* diskoutFilePath, unsig
 	}
 }
 
-int HardwareCycle(instructionType I, int* R, unsigned int* R_IO, char* inargs[], int monitor[256][256], unsigned int* disk_clk) {
+int HardwareCycle(unsigned int* R_IO, char* inargs[], int monitor[256][256], unsigned int* disk_clk) {
 	//printf("%s, %s", inargs[5], inargs[12]);
 	disk(R_IO, inargs[5], inargs[12], disk_clk);
 

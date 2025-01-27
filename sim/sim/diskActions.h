@@ -7,9 +7,11 @@
 #define LINE_LENGTH 10 // Length of each line including the null terminator
 #define DEFAULT_LINE "00000000"
 
-// Function to copy 128 lines from one file to another
 
-int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int lineWrite) {
+int diskReadWrite(char* filePathRead, int lineRead, char* filePathWrite, int lineWrite) {
+	// Copies 128 lines from filePathRead to filePathWrite starting from lineRead to lineWrite
+	// If the data does not exist, it will be read as 0
+
 	printf("Copying 128 lines from %s to %s\n", filePathRead, filePathWrite);
 	printf("Copying from line %d to line %d\n", lineRead, lineWrite);
 
@@ -55,18 +57,22 @@ int copy128lines(char* filePathRead, int lineRead, char* filePathWrite, int line
     }
     
 	int current_line = 0;
+	// Writing is done by choosing between the original file and the data we read in copy[] 
+	// based on the lineWrite and the fact we always copy 128 lines
     while (fgets(buffer, sizeof(buffer), dest)) {
             if ((current_line >= lineWrite) && (current_line < lineWrite+128)) {
+				// we need to choose the  data from copy[]
 				fprintf(temp, "%08X\n", copy[current_line - lineWrite]);
             }
 
 			else {
+				// we need to use the original data
 				fprintf(temp, "%s", buffer);
 			}
 			current_line++;
         }
 
-	// 0 padding is needed
+	// 0 padding is needed because the write file is too short 
 	if (current_line < lineWrite) {
 		for (int i = current_line; i < lineWrite; i++) {
 			fprintf(temp, "%s\n", DEFAULT_LINE);

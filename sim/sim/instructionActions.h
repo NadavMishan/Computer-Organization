@@ -18,7 +18,7 @@ typedef struct instructionType {
 
 
 // inputs an instruction as a string of a hex number and execute the right insturction.
-instructionType parseInstruction(char* instruction_imemin, int* R) {
+instructionType decodeInstruction(char* instruction_imemin, int* R) {
 	/*
 	* Insturction Format:
 	0000 0000|	0000|	0000|	0000|	0000|	0000 0000 0000|		1111 1111 1111|
@@ -219,10 +219,10 @@ int executeInsturctionIO(instructionType I, int* R, unsigned int* R_IO, int* PCa
 		case 15: // disksector
 		case 16: // diskbuffer
 		case 17: // diskstatus
-
 			if (R_IO[17]) { // if the disk is busy, don't write to it
 				value = R_IO[RrsRrt];
 			}
+			break;
 		}
 
 		R_IO[RrsRrt] = value; // Assign value to the registers 

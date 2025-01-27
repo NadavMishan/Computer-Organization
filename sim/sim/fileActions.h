@@ -152,6 +152,7 @@ void ensureFileExists(const char* filepath) {
 }
 
 int debug_deleteOutputFiles(char* file_paths[]) {
+	// Delete all the output files created by the program before starting a run
 	for (int i = 5; i < 15; i++) {
 		if (file_paths[i] == NULL) {
 			fprintf(stderr, "Error: Null file path at index %d.\n", i);
@@ -165,12 +166,12 @@ int debug_deleteOutputFiles(char* file_paths[]) {
 			perror(file_paths[i]);
 		}
 	}
-
 	return 0;
 }
 
 
 int debug_easyDiskData() {
+	// Create an easy debug file to test disktest.asm
 	FILE* temp = fopen("easyDiskData.txt", "w");
 	if (!temp) {
 		perror("Error creating temporary file");
