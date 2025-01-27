@@ -60,9 +60,9 @@ int main(int argc, char* argv[]) {
     //const char output_filename_IMEMIN[] = "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\imemin1.txt";
     //const char output_filename_DMEMIN[] = "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\dmemin1.txt";
     if (argc < 2) {
-        argv[1]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\fib.asm";
-        argv[2]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\imemin1.txt";
-        argv[3]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\dmemin1.txt";
+        argv[1]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\mulmat.txt";
+        argv[2]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\imemin.txt";
+        argv[3]= "C:\\Users\\Shachar\\Desktop\\C\\Comp.Org.Project\\dmemin.txt";
     }
 
 
@@ -97,14 +97,14 @@ int find_max_address(const char* input_filename) {
 
             // בדיקה להקסדצימלי עם קידומת 0x/0X
             if (sscanf(line, ".word 0x%x", &address) == 1 || sscanf(line, ".word 0X%x", &address) == 1) {
-                printf("Hexadecimal address: 0x%x\n", address); // ניתן להוסיף טיפול מתאים כאן
+                //printf("Hexadecimal address: 0x%x\n", address); // ניתן להוסיף טיפול מתאים כאן
                 if ((int)address > max_address) {
                     max_address = (int)address;
                 }
             }
             // בדיקה לעשרוני
             else if (sscanf(line, ".word %d", &address) == 1) {
-                printf("Decimal address: %d\n", address); // ניתן להוסיף טיפול מתאים כאן
+                //printf("Decimal address: %d\n", address); // ניתן להוסיף טיפול מתאים כאן
                 if ((int)address > max_address) {
                     max_address = (int)address;
                 }
