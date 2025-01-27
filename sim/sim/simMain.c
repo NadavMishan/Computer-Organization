@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include "utils.h"
 #include "fileActions.h"
 #include "instructionActions.h"
@@ -113,8 +114,8 @@ int main(int argc, char* argv[]) {
 
 
 
-		/*printf("\nRegisters: ");
-		for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);*/
+		//printf("\nRegisters: ");
+		//for (int i = 0; i < 16; i++) printf("%d) %d\t", i, registers[i]);
 		//printf("\nIO registers: ");
 		//for (int i = 0; i < 23; i++) printf("%d) %d\t", i, IO_registers[i]);
 		//printf("\n ------------------------------------------------------------------------------------------------------------------------\n");

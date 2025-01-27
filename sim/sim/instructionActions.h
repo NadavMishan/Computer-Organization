@@ -149,15 +149,19 @@ int executeInsturctionBasic(instructionType I, int* R, int* PCadr) {
 
 
 int executeInsturctionLwSw(instructionType I, int* R, int* PCadr, char* dmemout) {
+	
+	
+	
 	switch (I.opcode)
 	{
 	case 16: // Load word (read)
 		R[I.rd] = memRead(R[I.rs] + R[I.rt], dmemout) + R[I.rm];
+		//printf("LWSW Read: Adress %d, Value %d\n", R[I.rs] + R[I.rt], R[I.rd]);
 		break;
 
 	case 17: // Store word (write)
 		memWrite(R[I.rs] + R[I.rt], R[I.rm] + R[I.rd], dmemout);
-
+		//printf("LWSW Write: Adress %d, Value %d\n", R[I.rs] + R[I.rt], R[I.rm] + R[I.rd]);
 		break;
 
 	default:

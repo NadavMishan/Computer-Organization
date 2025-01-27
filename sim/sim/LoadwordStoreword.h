@@ -13,7 +13,7 @@ int memRead(int address, char* dmemout_txt) {
         return 0;
     }
     else {
-        return (int)strtol(line, NULL, 16);
+        return hex_to_signedInt(line);
     }
 
 }
