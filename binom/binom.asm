@@ -33,4 +33,4 @@ L2:
 add $sp, $sp, $imm2, $zero, 0, 4			# pop 4 items from stack
 beq $zero, $zero, $zero, $ra, 0, 0			# and return
 .word 256 8
-.word 257 1
+.word 257 3
