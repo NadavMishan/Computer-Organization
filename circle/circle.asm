@@ -35,4 +35,4 @@ bgt $zero,$a0,$s2,$imm1,Finish,0		# if a0 > s2 than we passed last line
 beq $zero,$zero,$zero,$imm2,0,Search	# else, go Searching
 Finish:
 halt $zero,$zero,$zero,$zero,0,0		# halt
-		.word 256 3						
+		.word 256 12						
