@@ -33,38 +33,38 @@ sub $v0,$v0,$v0,$zero,0,0   #initialize $v0 = 0
 beq $zero,$zero,$zero,$imm2,0,Loop
 finish:
 halt $zero,$zero,$zero,$zero,0,0
-    .word 255 1      # MEM[255] = 1
-    .word 256 0      # MEM[256] = 0
-    .word 257 0      # MEM[257] = 0
-    .word 258 0      # MEM[258] = 0
-    .word 259 0      # MEM[259] = 0
-    .word 260 2      # MEM[260] = 2
-    .word 261 0      # MEM[261] = 0
-    .word 262 0      # MEM[262] = 0
-    .word 263 0      # MEM[263] = 0
-    .word 264 0      # MEM[264] = 0
-    .word 265 3      # MEM[265] = 3
-    .word 266 0      # MEM[266] = 0
-    .word 267 0      # MEM[267] = 0
-    .word 268 0      # MEM[268] = 0
-    .word 269 0      # MEM[269] = 0
-    .word 270 4      # MEM[270] = 4
-    .word 271 1      # MEM[271] = 1
-    .word 272 0      # MEM[272] = 0
-    .word 273 0      # MEM[273] = 0
-    .word 274 0      # MEM[274] = 0
-    .word 275 0      # MEM[275] = 0
-    .word 276 2      # MEM[276] = 2
-    .word 277 0      # MEM[277] = 0
-    .word 278 0      # MEM[278] = 0
-    .word 279 0      # MEM[279] = 0
-    .word 280 0      # MEM[280] = 0
-    .word 281 3      # MEM[281] = 3
-    .word 282 0      # MEM[282] = 0
-    .word 283 0      # MEM[283] = 0
-    .word 284 0      # MEM[284] = 0
-    .word 285 0      # MEM[285] = 0
-    .word 286 4      # MEM[286] = 4
+    .word 256 -4     # A Matrix
+    .word 257 4      
+    .word 258 1      
+    .word 259 -1     
+    .word 260 3      
+    .word 261 2      
+    .word 262 4      
+    .word 263 5     
+    .word 264 6      
+    .word 265 -3      
+    .word 266 -1      
+    .word 267 -5      
+    .word 268 -1      
+    .word 269 -2      
+    .word 270 0x3      
+    .word 271 0x4      
+    .word 272 0        # B matrix   
+    .word 273 0      
+    .word 274 0      
+    .word 275 2      
+    .word 276 -6   
+    .word 277 -4    
+    .word 278 -2    
+    .word 279 -9    
+    .word 280 -1   
+    .word 281 -2   
+    .word 282 -3    
+    .word 283 -4      
+    .word 284 4      
+    .word 285 3      
+    .word 286 2     
+    .word 287 1 
 
 
     
